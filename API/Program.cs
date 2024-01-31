@@ -1,4 +1,5 @@
 
+using API;
 using API.Extensions;
 using API.Extensons;
 
@@ -12,6 +13,8 @@ builder.Services.AddIdentityServices(builder.Configuration);
 
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
