@@ -1,7 +1,6 @@
 ﻿using API.Data;
-using API.interfaces;
 using API.Interfaces;
-using API.services;
+using API.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions;

@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using API.DTOs;
+﻿using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
@@ -34,13 +33,6 @@ public class UserRepository : IUserRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<AppUser>> GetUserAsync()
-    {
-        return await _context.Users
-        .Include(p => p.Photos)
-        .ToListAsync();
-    }
-
     public async Task<AppUser> GetUserByIdAsync(int id)
     {
         return await _context.Users.FindAsync(id);
@@ -49,8 +41,13 @@ public class UserRepository : IUserRepository
     public async Task<AppUser> GetUserByUsernameAsync(string username)
     {
         return await _context.Users
-        .Include(p => p.Photos)
-        .SingleOrDefaultAsync(x => x.UserName == username);
+            .Include(p => p.Photos)
+            .SingleOrDefaultAsync(x => x.UserName == username);
+    }
+
+    public async Task<IEnumerable<AppUser>> GetUsersAsync()
+    {
+        return await _context.Users.ToListAsync();
     }
 
     public async Task<bool> SaveAllAsync()

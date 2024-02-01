@@ -1,15 +1,12 @@
-﻿using API.Data;
-using API.DTOs;
-using API.Entities;
+﻿using API.DTOs;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-[Authorize]
+//[Authorize]
 public class UsersController : BaseApiController
 {
     private readonly IUserRepository _userRepository;
@@ -20,7 +17,6 @@ public class UsersController : BaseApiController
         _mapper = mapper;
     }
 
-    
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
     {
