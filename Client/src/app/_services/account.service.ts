@@ -8,9 +8,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AccountService {
-  //baseUrl = environment
-  baseUrl = 'https://localhost:5001/api/';
 
+  baseUrl = environment.apiUrl;
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
@@ -18,31 +17,32 @@ export class AccountService {
 
   login(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
-      map((response: User) =>{
+      map((response: User) => {
         const user = response;
-        if(user){
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
-        }
-      })
-    )
-  }
-  register(model: any){
-    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
-      map(user => {
-        if(user){
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
+        if (user) {
+          this.setCurrentUser(user);
         }
       })
     )
   }
 
-  setCurrentUser(user: User){
+  register(model: any) {
+    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+      map(response => {
+        const user = response;
+        if (user) {
+          this.setCurrentUser(user);
+        }
+      })
+    )
+  }
+
+  setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
   }
