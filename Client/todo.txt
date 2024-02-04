@@ -1,2 +1,1 @@
-npm install ngx-spinner --save
-npm i ng2-file-upload 
+npm install ngx-timeago --force
