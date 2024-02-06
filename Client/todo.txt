@@ -1,1 +1,2 @@
 npm install ngx-timeago --force
+ef migrations remove
