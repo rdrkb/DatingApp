@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository
             .SingleOrDefaultAsync();
     }
 
-   public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
+    public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
     {
         var query = _context.Users.AsQueryable();
 
@@ -65,11 +65,6 @@ public class UserRepository : IUserRepository
     public async Task<IEnumerable<AppUser>> GetUsersAsync()
     {
         return await _context.Users.ToListAsync();
-    }
-
-    public async Task<bool> SaveAllAsync()
-    {
-        return await _context.SaveChangesAsync() > 0;
     }
 
     public void Update(AppUser user)
